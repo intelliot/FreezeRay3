@@ -113,6 +113,11 @@ function buildSimpleTransaction() {
 	return freezehack.sendTransHEX;
 }
 
+function signSimpleTransaction() {
+	console.log("Signing simple transaction")
+	
+}
+
 //function addInput(hash,index) {	
 function addInput(tx_hash) {	
 	// Add the input (who is paying) of the form [previous transaction hash, index of the output to use]

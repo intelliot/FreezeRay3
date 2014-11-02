@@ -163,6 +163,9 @@
         <script id="page11.html" type="text/ng-template">
             <ion-view title="Offline: Scan Tx">
             <ion-content padding="true" scroll="false">
+
+            <ion-content ng-controller="ScanUnsignedTXController" padding="true" class="has-header">
+
             <div style="line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
             </div>
@@ -170,14 +173,13 @@
             <div>
             <p>Use camera above to scan unsigned transaction from Online device, or paste it below.</p>
             <label class="item item-input" name="unsignedtxhash">
-            <input ng-model="offline.unsignedtxhash" type="text" placeholder="Paste Unsigned TX Hash (optional)" value="">
+            <input ng-model="unsigned.txhash" type="text" placeholder="Paste Unsigned TX Hash (optional)" value="">
             </label>
             </div>
             <div>
             <p>… Transaction details: Destination address: xXxXxXxX Amount: 100.00 mBTC</p>
             </div>
-            <ion-checkbox>Confirm</ion-checkbox>
-            <button class="button button-stable button-block">Continue to view signed tx</button>
+            <button class="button button-stable button-block" ng-click="scanBarcode(unsigned)">Confirm</button>
             </form>
             </ion-content>
             </ion-view></script>
