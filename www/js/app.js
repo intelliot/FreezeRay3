@@ -224,9 +224,21 @@ $ionicPlatform.ready(function() {
             freezehack['unsignedtxhex'] = input;
           }
 
-          alert("unsigned tx hex is="+freezehack.unsignedtxhex+", now it needs to be signed");
+          //alert("unsigned tx hex is="+freezehack.unsignedtxhex+", now it needs to be signed");
 
-          
+          var txObj = Bitcoin.Transaction.fromHex(freezehack.unsignedtxhex)
+
+          console.log("got here, this should be an object="+txObj)
+
+          // hack, assume index zero
+          privKeyHex = Bitcoin.ECKey.fromWIF(freezehack.privKey);
+          txObj.sign(0,privKeyHex)
+
+          freezehack['signedTransactionHex'] = txObj.toHex()
+
+          console.log("signed tx hex="+freezehack.signedTransactionHex)
+
+          alert("signed transaction hex="+freezehack.signedTransactionHex+", please display this to the user for them to scan with their online device")
 
         }
 

@@ -101,6 +101,7 @@ function buildSimpleTransaction() {
 
 	freezehack['sendTransHEX'] = freezehack.sendTransObj.toHex();
 
+	console.log("transaction hex="+freezehack.sendTransHEX)
 
 	//freezehack.sendTransObj.addOutput(freezehack.pubKey, freezehack.payAmountSatoshi);
 
