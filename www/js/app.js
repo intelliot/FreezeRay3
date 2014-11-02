@@ -134,10 +134,10 @@ $ionicPlatform.ready(function() {
     })
 
     .controller("QRShow", function($scope, $location) {
-        $scope.message = "Show this to your online phone";
+        $scope.message = "Show this to your other device";
         new QRCode(document.getElementById("qrcode"), window.localStorage.getItem('utx'));
         $scope.next = function() {
-            $location.path('/welcome');
+            $location.path('/scantx');
         }
     })
 
@@ -162,8 +162,8 @@ $ionicPlatform.ready(function() {
           unsignedTransHex = buildSimpleTransaction()
           //$location.path('/unsignedtx')
           window.localStorage.setItem('utx',unsignedTransHex);
+          $location.path('/confirmSell');
         });
-        $location.path('/confirmSell');
       }
 
       $scope.scanBarcode = function(transaction) {
@@ -189,12 +189,12 @@ $ionicPlatform.ready(function() {
                 unsignedTransHex = buildSimpleTransaction()
                 //$location.path('/unsignedtx')
                 window.localStorage.setItem('utx',unsignedTransHex);
+                $location.path('/confirmSell');
               });
 
           }, function(error) {
               console.log("error: " + error);
           });
-        $location.path('/confirmSell');
       }
     })
 
@@ -290,7 +290,9 @@ $ionicPlatform.ready(function() {
           processInfo(signed.txhash,'paste')
         }
         else {
-          $cordovaBarcodeScanner.scan().then(processInfo(imageData,'camera'),
+          $cordovaBarcodeScanner.scan().then(function(imageData) { 
+            processInfo(imageData,'camera') 
+          },
             function(error) { console.log("error: " + error); 
           });
         }
