@@ -18,6 +18,9 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
+<script src="js/ng-cordova.min.js"></script>
+<script src="cordova.js"></script>
+
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
@@ -31,7 +34,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic'])
+var freezeRayApp = angular.module('app', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -100,6 +103,21 @@ angular.module('app', ['ionic'])
   
   $urlRouterProvider.otherwise('/welcome');
   
+
+});
+
+freezeRayApp.controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
+                        
+    $scope.scanBarcode = function() {
+    $cordovaBarcodeScanner.scan().then(function(imageData) {
+                                       
+           alert(imageData.text);
+           console.log("format " + imageData.format);
+           
+       }, function(error) {
+           console.log("error: " + error);
+       });
+    }
 
 });
 
@@ -178,7 +196,10 @@ angular.module('app', ['ionic'])
 </ion-view></script>
 <script id="page8.html" type="text/ng-template">
 <ion-view title="Send">
-    <ion-content padding="true" scroll="false">
+
+
+
+    <ion-content ng-controller="QRScannerController" padding="true" scroll="false">
         <form>
             <label class="item item-input" name="Amount">
                 <span class="input-label">Amount (mBTC)</span>
@@ -186,14 +207,25 @@ angular.module('app', ['ionic'])
             </label>
         </form>
         <div class="spacer" style="width: 300px; height: 41px;"></div>
-        <div style="line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        
+        <div>
+        <p>Scan QR Code:</p>
         </div>
+        
+        
+        
+        <button class="button button-stable button-block" ng-click="scanBarcode()">Scan QR Code</button>
+        
+        
+        
         <div>
             <p>Scan QR code with camera</p>
         </div>
         <button class="button button-stable button-block">Confirm</button>
     </ion-content>
+    
+    
+    
 </ion-view></script>
 <script id="page9.html" type="text/ng-template">
 <ion-view title="Unsigned Transaction">
