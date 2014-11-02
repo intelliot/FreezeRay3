@@ -179,6 +179,7 @@ $ionicPlatform.ready(function() {
 
           console.log("got here, this should be an object="+txObj)
 
+<<<<<<< Updated upstream
           // hack, assume index zero
           privKeyHex = Bitcoin.ECKey.fromWIF(freezehack.privKey);
           txObj.sign(0,privKeyHex)
@@ -200,6 +201,37 @@ $ionicPlatform.ready(function() {
             function(error) { console.log("error: " + error); 
           });
         }
+=======
+      $scope.scanBarcode = function(transaction) {
+          $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
+              $scope.friendKey=imageData.text;
+              window.localStorage.setItem('friendKey', imageData.text)
+              window.localStorage.setItem('friendAmount', transaction.amount)
+
+              freezehack['payToAddress'] = imageData.text;
+                  
+              var chainurl = 'https://api.chain.com/v2/bitcoin/';
+              var chainkey = '?api-key-id=DEMO-4a5e1e4';
+              //var fromx = transaction.fromAddress;
+              //var fromx = window.localStorage.getItem('publicKey');
+              var fromaddr = freezehack.pubKey;
+              var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
+              console.log("utxo chain url=" + url);
+              freezehack['payAmountMBTC'] = transaction.amount;
+
+              $http.get(url).success(function(data,transaction) {
+                console.log("got=" + JSON.stringify(data));
+                freezehack['unsignedTransactionDataObject'] = data;
+                unsignedTransHex = buildSimpleTransaction()
+                //$location.path('/unsignedtx')
+                window.localStorage.setItem('utx',unsignedTransHex);
+              });
+              $location.path('/confirmSell');
+
+          }, function(error) {
+              console.log("error: " + error);
+          });
+>>>>>>> Stashed changes
       }
 
 

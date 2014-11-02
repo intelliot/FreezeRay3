@@ -110,6 +110,7 @@
             <span class="input-label">Amount (mBTC)</span>
             <input ng-model="transaction.amount" type="text" >
             </label>
+<<<<<<< Updated upstream
             <div>
             <p>Scan Address to Pay</p>
             </div>
@@ -118,6 +119,25 @@
             <input ng-model="transaction.toAddress" type="text" placeholder="Friend's Address">
             </label>
             <button class="button button-stable button-block" ng-click="scanBarcode(transaction)">Build Transaction</button>
+=======
+            <p></p>
+            <div>
+            <p>Scan Address to Pay</p>
+            </div>
+            
+            <button class="button button-stable button-block" ng-click="scanBarcode(transaction)">Begin Scan</button>
+
+            <label class="item item-input single" name="toAddress">
+            <span class="input-label">Address</span>
+            <input ng-model="transaction.toAddress" type="text">
+            </label>
+            <div class="spacer" style="width: 300px; height: 20px;"></div>
+            <p></p>
+            <div>
+            <p>Or enter bitcoin address</p>
+            </div>
+            <button class="button button-stable button-block gray" ng-click="buildUnsingedTXHelper(transaction)">Build Transaction</button>
+>>>>>>> Stashed changes
 
             </form>
             <div class="spacer" style="width: 300px; height: 20px;"></div>
@@ -182,13 +202,22 @@
             <div>
             <p>Use camera above to scan unsigned transaction from Online device, or paste it below.</p>
             <label class="item item-input" name="unsignedtxhash">
+<<<<<<< Updated upstream
             <input ng-model="unsigned.txhash" type="text" placeholder="Paste Unsigned TX Hash (optional)" value="">
+=======
+            <input ng-model="offline.unsignedtxhash" type="text" placeholder="Paste Unsigned TX Hash (optional)" value="">
+>>>>>>> Stashed changes
             </label>
             </div>
             <div>
             <p>… Transaction details: Destination address: xXxXxXxX Amount: 100.00 mBTC</p>
             </div>
+<<<<<<< Updated upstream
             <button class="button button-stable button-block" ng-click="scanBarcode(unsigned)">Confirm</button>
+=======
+            <ion-checkbox>Confirm</ion-checkbox>
+            <button class="button button-stable button-block">Continue to view signed tx</button>
+>>>>>>> Stashed changes
             </form>
             </ion-content>
             </ion-view></script>
