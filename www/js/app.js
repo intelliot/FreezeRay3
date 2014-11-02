@@ -73,22 +73,22 @@ var freezeRayApp = angular.module('starter', ['ionic, ngCordova'])
         $urlRouterProvider.otherwise('/welcome');
         
         
-});
+        });
 
 freezeRayApp.controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
-
-  $scope.scanBarcode = function() {
-    $cordovaBarcodeScanner.scan().then(function(imageData) {
-
-      alert(imageData.text);
-      console.log("format " + imageData.format);
-
-    }, function(error) {
-      console.log("error: " + error);
-    });
-  }
-
-});
+                        
+                        $scope.scanBarcode = function() {
+                        $cordovaBarcodeScanner.scan().then(function(imageData) {
+                                                           
+                                                           alert(imageData.text);
+                                                           console.log("format " + imageData.format);
+                                                           
+                                                           }, function(error) {
+                                                           console.log("error: " + error);
+                                                           });
+                        }
+                        
+                        });
 
 
 
