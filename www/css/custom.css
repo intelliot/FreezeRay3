@@ -92,10 +92,23 @@ p {
 .total span {
 	color: #D09A46;
 }
+#qrcode img {
+	margin: auto;
+}
 .red {
 	background: #EA7C7C !important;
 }
 .circleicon.ion-locked {
 	padding: 0 45px;
 	background: #E2E2E2;
+}
+.bold {
+	font-weight: bold;
+	color: #555;
+}
+.statement {
+	font-weight: normal;
+	color: #E2B97A;
+	font-size: 2em;
+	line-height: 2em;
 }
