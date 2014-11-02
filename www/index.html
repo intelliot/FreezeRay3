@@ -121,11 +121,18 @@
             <div>
             <p>Scan QR code with camera</p>
             </div>
-            <span>Public Bitcoin Address: <span ng-bind="friendKey"></span></span>
-            <button class="button button-stable button-block">Confirm</button>
             </ion-content>
-            
-            </ion-view></script>
+                
+            </ion-view>
+        </script>
+        <script id="confirmSell.html" type="text/ng-template">
+            <ion-view title="Send">
+            <ion-content ng-controller="QRConfirm" padding="true" scroll="false">
+            <span>Public Bitcoin Address: <span ng-bind="friendKey"></span></span>
+            <button class="button button-stable button-block" ng-click="confirm()">Confirm</button>
+            </ion-content>
+            </ion-view>
+        </script>
         <script id="page9.html" type="text/ng-template">
             <ion-view title="Unsigned Transaction">
             <ion-content ng-controller="QRScannerController" padding="true" class="has-header">

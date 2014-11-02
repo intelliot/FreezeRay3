@@ -74,6 +74,11 @@ $ionicPlatform.ready(function() {
         templateUrl: 'page12.html'
         })
 
+    .state('confirmSell', {
+        url: '/confirmSell',
+        templateUrl: 'confirmSell.html'
+        })
+
     ;
 
     // if none of the above states are matched, use this as the fallback
@@ -85,15 +90,11 @@ $ionicPlatform.ready(function() {
 
     freezeRayApp
 
-    .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
-      $scope.scanBarcode = function() {
-        $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
-          alert(imageData.text);
-          console.log("format " + imageData.format);
-
-          }, function(error) {
-            console.log("error: " + error);
-        });
+    .controller("QRConfirm", function($scope, $location) {
+      $scope.friendKey = window.localStorage.getItem('friendKey');
+      $scope.confirm =  function() {
+        alert();
+        $location.path('/wallet');
       }
     })
 
@@ -107,11 +108,11 @@ $ionicPlatform.ready(function() {
         }
     })
 
-    .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
+    .controller("QRScannerController", function($scope, $cordovaBarcodeScanner, $location) {
         $scope.scanBarcode = function() {
-            $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
-                $scope.friendKey=imageData.text;
+            $cordovaBarcodeScanner.scan().then(function(imageData) {
                 window.localStorage.setItem('friendKey', imageData.text)
+                $location.path('/confirmSell');
             }, function(error) {
                 console.log("error: " + error);
             });
