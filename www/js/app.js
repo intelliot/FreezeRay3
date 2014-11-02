@@ -143,19 +143,6 @@ $ionicPlatform.ready(function() {
 
     .controller("ScanAddressToPayController", function($scope, $cordovaBarcodeScanner, $http, $location) {
 
-      // $scope.buildUnsignedTX = function(transaction) {
-      //   var chainurl = 'https://api.chain.com/v2/bitcoin/';
-      //   var chainkey = '?api-key-id=DEMO-4a5e1e4';
-      //   //var fromx = transaction.fromAddress;
-      //   var fromx = window.localStorage.getItem('publicKey');
-      //   var url = chainurl + "addresses/" + fromx + "/unspents" + chainkey;
-      //   console.log("utxo chain url=" + url);
-
-      //   $http.get(url).success(function(data) {
-      //     console.log("got=" + JSON.stringify(data));
-      //   });
-      // }
-
       $scope.buildUnsingedTXHelper = function(transaction) {
         window.localStorage.setItem('friendKey', transaction.toAddress)
         window.localStorage.setItem('friendAmount', transaction.amount)
@@ -163,8 +150,6 @@ $ionicPlatform.ready(function() {
 
         var chainurl = 'https://api.chain.com/v2/bitcoin/';
         var chainkey = '?api-key-id=DEMO-4a5e1e4';
-        //var fromx = transaction.fromAddress;
-        //var fromx = window.localStorage.getItem('publicKey');
         var fromaddr = freezehack.pubKey;
         var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
         console.log("utxo chain url=" + url);
@@ -264,7 +249,7 @@ $ionicPlatform.ready(function() {
         function processInfo(input,mode) {
           console.log("got here, input="+input+",mode="+mode)
           if (mode == 'camera') {
-              freezehack['signedTransactionHex'] = imageData.text;
+              freezehack['signedTransactionHex'] = input.text;
           }
           else {
             freezehack['signedTransactionHex'] = input;
@@ -272,21 +257,18 @@ $ionicPlatform.ready(function() {
 
           console.log("got here, the signed transaction hash is=",freezehack.signedTransactionHex);
 
-          //TODO// BROADCAST TO BITCOIN NETWORK
-
-          //var url = 'https://blockchain.info/pushtxFORCEFAIL';
           //var url = 'https://blockchain.info/pushtx';
           var url = freezehack.chainurl+'/transactions'+freezehack.chainkey
           console.log("POSTing data to "+url)
           //var toPost = freezehack.signedTransactionHex
           var toPost = {'hex': freezehack.signedTransactionHex}
-          alert("Are you sure you want to post "+freezehack.signedTransactionHex+" to "+url)
+          //alert("Are you sure you want to post "+freezehack.signedTransactionHex+" to "+url)
 
           $http.post(url, toPost).
             success(function(data, status, headers, config) {
               // this callback will be called asynchronously
               // when the response is available
-              alert("Much success!"+JSON.stringify(data))
+              alert("Bitcoins Sent!"+JSON.stringify(data))
               console.log("Much success!"+JSON.stringify(data))
             }). 
             error(function(data, status, headers, config) {
