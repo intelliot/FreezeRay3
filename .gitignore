@@ -6,6 +6,7 @@ node_modules
 *.tmp.*
 log.txt
 platforms/
+platforms/ios
 example/cordova/iOS/www/js/framework
 
 example/cordova/iOS/www/js/framework
