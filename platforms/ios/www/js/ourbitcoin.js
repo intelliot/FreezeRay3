@@ -101,7 +101,7 @@ function buildSimpleTransaction() {
 
 	freezehack['sendTransHEX'] = freezehack.sendTransObj.toHex();
 
-	console.log("transaction hex="+freezehack.sendTransHEX)
+	console.log("unsigned tx hash="+freezehack.sendTransHEX)
 
 	//freezehack.sendTransObj.addOutput(freezehack.pubKey, freezehack.payAmountSatoshi);
 
@@ -112,6 +112,12 @@ function buildSimpleTransaction() {
 	//console.log(msg);
 
 	return freezehack.sendTransHEX;
+}
+
+function signSimpleTransaction() {
+	console.log("Signing simple transaction")
+	var tmptx = new Bitcoin.Transaction()
+
 }
 
 //function addInput(hash,index) {	

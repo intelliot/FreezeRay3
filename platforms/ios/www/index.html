@@ -75,7 +75,7 @@
             <input type="password" >
             </label>
             <div class="spacer" style="width: 300px; height: 41px;"></div>
-            <a href="#/scantx" class="button button-stable button-block">Save</a>
+            <a href="#/offlinescan" class="button button-stable button-block">Save</a>
             </form>
             </ion-content>
             </ion-view></script>
@@ -110,20 +110,14 @@
             <span class="input-label">Amount (mBTC)</span>
             <input ng-model="transaction.amount" type="text" >
             </label>
-            
-            <p></p>
-              
             <div>
             <p>Scan Address to Pay</p>
             </div>
-            
-            <button class="button button-stable button-block" ng-click="scanBarcode(transaction)">Begin Scan</button>
-
             <label class="item item-input" name="toAddress">
             <span class="input-label">Or Paste Address to Pay</span>
             <input ng-model="transaction.toAddress" type="text" placeholder="Friend's Address">
             </label>
-            <button class="button button-stable button-block" ng-click="buildUnsingedTXHelper(transaction)">Build Transaction</button>
+            <button class="button button-stable button-block" ng-click="scanBarcode(transaction)">Build Transaction</button>
 
             </form>
             <div class="spacer" style="width: 300px; height: 20px;"></div>
@@ -144,7 +138,7 @@
             <ion-view title="QR Code">
             <ion-content ng-controller="QRShow" padding="true" scroll="false">
             <h3 class="text-center" ng-bind="message"></h3>
-            <div id="qrcode" class="text-center"></div>
+            <div id="qrcode"></div>
             <button class="button button-stable button-block" ng-click="next()">Done</button>
             </ion-content>
             </ion-view>
@@ -159,11 +153,17 @@
             </ion-view></script>
         <script id="page10.html" type="text/ng-template">
             <ion-view title="Scan Signed Tx">
-            <ion-content ng-controller="QRScannerController" padding="true" class="has-header">
-                <button class="button button-stable button-block" ng-click="scanBarcode()">Scan QR Code</button>
+            <ion-content ng-controller="ScanSignedTXController" padding="true" class="has-header">
                 <div>
-                    <p>Scan signed transaction QR code with camera above</p>
+                    <p>Scan the signed transaction QR code from your offline device with camera above, or paste it below</p>
                 </div>
+                <form>
+                    <label class="item item-input" name="signedTXHash">
+                    <input ng-model="signed.txhash" type="text" placeholder="Or paste it here (optional)" value="">
+                    </label>    
+                </form>
+                <button class="button button-stable button-block" ng-click="scanBarcode(signed)">Send Bitcoins!</button>
+
                 <div>
                     <p>(Next Page: Sending Transaction to Bitcoin Network&nbsp;…&nbsp;Successfully Sent!)</p>
                 </div>
@@ -172,18 +172,23 @@
         <script id="page11.html" type="text/ng-template">
             <ion-view title="Offline: Scan Tx">
             <ion-content padding="true" scroll="false">
+
+            <ion-content ng-controller="ScanUnsignedTXController" padding="true" class="has-header">
+
             <div style="line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
             <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
             </div>
+            <form>
             <div>
-            <p>Use camera above to scan unsigned transaction from Online device</p>
+            <p>Use camera above to scan unsigned transaction from Online device, or paste it below.</p>
+            <label class="item item-input" name="unsignedtxhash">
+            <input ng-model="unsigned.txhash" type="text" placeholder="Paste Unsigned TX Hash (optional)" value="">
+            </label>
             </div>
             <div>
             <p>… Transaction details: Destination address: xXxXxXxX Amount: 100.00 mBTC</p>
             </div>
-            <form>
-            <ion-checkbox>Confirm</ion-checkbox>
-            <button class="button button-stable button-block">Continue to view signed tx</button>
+            <button class="button button-stable button-block" ng-click="scanBarcode(unsigned)">Confirm</button>
             </form>
             </ion-content>
             </ion-view></script>
