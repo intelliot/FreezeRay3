@@ -5,7 +5,13 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+
+var freezehack = new Array();
+freezehack['pubKey'] = '1LFKEBkpVFheo5QKyKVL2bvXDtvbnArWJu';
+freezehack['privKey'] = 'KwQBcaqY5uW48g8RUsxKJsMVdZDCWqc2u98XQWP12XQxQjfPt2hB';
+
 var freezeRayApp = angular.module('app', ['ionic', 'ngCordova'])
+
 
 .run(function($ionicPlatform) {
 $ionicPlatform.ready(function() {
@@ -119,12 +125,73 @@ $ionicPlatform.ready(function() {
         }
     })
 
+    .controller("ScanAddressToPayController", function($scope, $cordovaBarcodeScanner, $http, $location) {
+
+      // $scope.buildUnsignedTX = function(transaction) {
+      //   var chainurl = 'https://api.chain.com/v2/bitcoin/';
+      //   var chainkey = '?api-key-id=DEMO-4a5e1e4';
+      //   //var fromx = transaction.fromAddress;
+      //   var fromx = window.localStorage.getItem('publicKey');
+      //   var url = chainurl + "addresses/" + fromx + "/unspents" + chainkey;
+      //   console.log("utxo chain url=" + url);
+
+      //   $http.get(url).success(function(data) {
+      //     console.log("got=" + JSON.stringify(data));
+      //   });
+      // }
+
+      $scope.buildUnsingedTXHelper = function(transaction) {
+        var chainurl = 'https://api.chain.com/v2/bitcoin/';
+        var chainkey = '?api-key-id=DEMO-4a5e1e4';
+        //var fromx = transaction.fromAddress;
+        //var fromx = window.localStorage.getItem('publicKey');
+        var fromaddr = freezehack.pubKey;
+        var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
+        console.log("utxo chain url=" + url);
+        freezehack['payToAddress'] = transaction.toAddress;
+        freezehack['payAmountMBTC'] = transaction.amount;
+
+        $http.get(url).success(function(data,transaction) {
+          console.log("got=" + JSON.stringify(data));
+          freezehack['unsignedTransactionDataObject'] = data;
+          unsignedTransHex = buildSimpleTransaction()
+          //$location.path('/unsignedtx')
+          alert("unsignedTransHex="+unsignedTransHex+", please put that into a QR code and display to the user")
+        });
+      }
+
+      $scope.scanBarcode = function() {
+          $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
+              $scope.friendKey=imageData.text;
+              window.localStorage.setItem('friendKey', imageData.text)
+
+
+
+          }, function(error) {
+              console.log("error: " + error);
+          });
+      }
+    })
+
+
+
+    // .controller("ShowUnsignedTransactionQRController", function($scope,$location) {
+
+
+    //   $scope.buildUnsignedTX = function(transaction) {
+    //       unsigned = buildUnsignedTransaction(freezehack.unsignedTransactionDataObject,freezehack.payToAddress,freezeHack.payAmount)
+
+    //   }
+
+    // });
+  
+
     .controller("BuildUnsignedTXController", function($scope,$http) {
-     
       $scope.buildUnsignedTX = function(transaction) {
         var chainurl = 'https://api.chain.com/v2/bitcoin/';
         var chainkey = '?api-key-id=DEMO-4a5e1e4';
-        var fromx = transaction.fromAddress;
+        //var fromx = transaction.fromAddress;
+        var fromx = window.localStorage.getItem('publicKey');
         var url = chainurl + "addresses/" + fromx + "/unspents" + chainkey;
         console.log("utxo chain url=" + url);
 

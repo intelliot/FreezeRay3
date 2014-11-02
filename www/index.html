@@ -56,14 +56,14 @@ $(function () {
                 <link href="/css/preview-frame.css" rel="stylesheet">
                 <link href="lib/ionic/css/ionic.css" rel="stylesheet">
                 <link href="css/custom.css" rel="stylesheet">
+                <script src="js/ourbitcoin.js"></script>
                         
                 <!-- ionic/angularjs js -->
                 <script src="lib/ionic/js/ionic.bundle.js"></script>
 
                 <script src="js/jquery.min.js"></script>
                 <script src="js/bitcoinjs.min.js"></script>
-                <script src="js/ourbitcoin.js"></script>
-                <script src="html5-qrcode.js"></script>
+                <script src="js/html5-qrcode.js"></script>
                 <script src="js/highcharts.js"></script>
                 <script src="js/modules/exporting.js"></script>
 
@@ -145,21 +145,34 @@ $(function () {
         <script id="page8.html" type="text/ng-template">
             <ion-view title="Send">
 
-            <ion-content ng-controller="QRScannerController" padding="true" scroll="false">
+            <ion-content ng-controller="ScanAddressToPayController" padding="true" scroll="false">
             <form>
             <div class="circleicon ion ion-paper-airplane"></div>
             <label class="item item-input single" name="Amount">
+
             <span class="input-label">Amount (mBTC)</span>
-            <input type="text">
+            <input ng-model="transaction.amount" type="text" placeholder="Amount (mBTC)">
             </label>
+            
+            <p></p>
+
+            <label class="item item-input" name="toAddress">
+            <span class="input-label">Paste Address to Pay</span>
+            <input ng-model="transaction.toAddress" type="text" placeholder="Friend's Address">
+            </label>
+
+            <button class="button button-stable button-block" ng-click="buildUnsingedTXHelper(transaction)">Build Transaction</button>
+
             </form>
-            <div class="spacer" style="width: 300px; height: 41px;"></div>
-            
-            <button class="button button-stable button-block" ng-click="scanBarcode()">Scan QR Code</button>
-            
+            <div class="spacer" style="width: 300px; height: 20px;"></div>
+              
             <div>
-            <p>Scan QR code with camera</p>
+            <p>Or Scan Addres to Pay</p>
             </div>
+            
+            <button class="button button-stable button-block" ng-click="scanBarcode()">Begin Scan</button>
+
+
             </ion-content>
                 
             </ion-view>
