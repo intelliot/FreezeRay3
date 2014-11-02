@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		1A8C3EB4C5B340678B9995B1 /* IonicKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D81D8616A6C45E3A5AE69F3 /* IonicKeyboard.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };

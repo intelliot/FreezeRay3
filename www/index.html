@@ -58,7 +58,7 @@
             </ion-view></script>
         <script id="page5.html" type="text/ng-template">
             <ion-view title="Welcome">
-            <ion-content padding="true" scroll="false">
+            <ion-content ng-controller="welcomeCtrl" padding="true" scroll="false">
             <h3>Welcome to FreezeRay</h3>
             <div>
             <p>This device is:</p>
@@ -135,7 +135,7 @@
             </ion-view></script>
         <script id="page9.html" type="text/ng-template">
             <ion-view title="Unsigned Transaction">
-            <ion-content padding="true" class="has-header">
+            <ion-content ng-controller="QRScannerController" padding="true" class="has-header">
             <h5>Scan this with your Offline device to sign:</h5>
             <button class="button button-stable button-block" ng-click="scanBarcode()">Scan QR Code</button>
             <button class="button button-stable button-block">Continue</button>

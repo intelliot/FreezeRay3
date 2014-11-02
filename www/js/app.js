@@ -75,13 +75,16 @@ $ionicPlatform.ready(function() {
     $urlRouterProvider.otherwise('/welcome');
 
 
-    });
+});
 
-    freezeRayApp
+freezeRayApp
 
+.controller("welcomeCtrl", function($scope) {
+    alert();
+})
 
-    .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
-        $scope.scanBarcode = function() {
+.controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
+    $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
             alert(imageData.text);
             console.log("format " + imageData.format);
@@ -89,5 +92,4 @@ $ionicPlatform.ready(function() {
             console.log("error: " + error);
         });
     }
-
 });
