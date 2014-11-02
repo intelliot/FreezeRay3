@@ -205,7 +205,7 @@ $ionicPlatform.ready(function() {
         function processInfo(input,mode) {
           console.log("got here, input="+input+",mode="+mode)
           if (mode == 'camera') {
-              freezehack['unsignedtxhex'] = imageData.text;
+              freezehack['unsignedtxhex'] = input.text;
           }
           else {
             freezehack['unsignedtxhex'] = input;
@@ -233,7 +233,9 @@ $ionicPlatform.ready(function() {
           processInfo(unsigned.txhash,'paste')
         }
         else {
-          $cordovaBarcodeScanner.scan().then(processInfo(imageData,'camera'),
+          $cordovaBarcodeScanner.scan().then(function(imageData) { 
+            processInfo(imageData,'camera') 
+          },
             function(error) { console.log("error: " + error); 
           });
         }
