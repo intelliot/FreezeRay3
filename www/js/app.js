@@ -250,52 +250,11 @@ $ionicPlatform.ready(function() {
             function(error) { console.log("error: " + error); 
           });
         }
-
-        //     function(imageData) {                                 
-        //       $scope.friendKey=imageData.text;
-        //       window.localStorage.setItem('friendKey', imageData.text)
-
-        //       freezehack['payToAddress'] = imageData.text;
-                  
-        //       var chainurl = 'https://api.chain.com/v2/bitcoin/';
-        //       var chainkey = '?api-key-id=DEMO-4a5e1e4';
-        //       //var fromx = transaction.fromAddress;
-        //       //var fromx = window.localStorage.getItem('publicKey');
-        //       var fromaddr = freezehack.pubKey;
-        //       var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
-        //       console.log("utxo chain url=" + url);
-        //       freezehack['payAmountMBTC'] = transaction.amount;
-
-        //       $http.get(url).success(function(data,transaction) {
-        //         console.log("got=" + JSON.stringify(data));
-        //         freezehack['unsignedTransactionDataObject'] = data;
-        //         unsignedTransHex = buildSimpleTransaction()
-        //         //$location.path('/unsignedtx')
-        //         alert("unsignedTransHex="+unsignedTransHex+", please put that into a QR code and display to the user")
-        //       });
-
-        //   }, function(error) {
-        //       console.log("error: " + error);
-        // });
-
       }
 
     }) 
 
 
-
-
-
-    // .controller("ShowUnsignedTransactionQRController", function($scope,$location) {
-
-
-    //   $scope.buildUnsignedTX = function(transaction) {
-    //       unsigned = buildUnsignedTransaction(freezehack.unsignedTransactionDataObject,freezehack.payToAddress,freezeHack.payAmount)
-
-    //   }
-
-    // });
-  
 
     .controller("walletCtrl", function($scope) {
         $(function() {
