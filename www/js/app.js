@@ -242,8 +242,56 @@ $ionicPlatform.ready(function() {
 
         }
 
-        if (unsigned.txhash) {
+        if (unsigned && unsigned.txhash) {
           processInfo(unsigned.txhash,'paste')
+        }
+        else {
+          $cordovaBarcodeScanner.scan().then(processInfo(imageData,'camera'),
+            function(error) { console.log("error: " + error); 
+          });
+        }
+      }
+
+    }) 
+
+
+    .controller("ScanSignedTXController", function($scope, $cordovaBarcodeScanner, $http, $location) {
+
+      $scope.scanBarcode = function(signed) {
+
+        function processInfo(input,mode) {
+          console.log("got here, input="+input+",mode="+mode)
+          if (mode == 'camera') {
+              freezehack['signedTransactionHex'] = imageData.text;
+          }
+          else {
+            freezehack['signedTransactionHex'] = input;
+          }
+
+          console.log("got here, the signed transaction hash is=",freezehack.signedTransactionHex);
+
+          //TODO// BROADCAST TO BITCOIN NETWORK
+
+          //var url = 'https://blockchain.info/pushtxFORCEFAIL';
+          var url = 'https://blockchain.info/pushtx';
+          console.log("POSTing data to "+url)
+          alert("Are you sure you want to post "+freezehack.signedTransactionHex+" to "+url)
+          $http.post(url, freezehack.signedTransactionHex).
+            success(function(data, status, headers, config) {
+              // this callback will be called asynchronously
+              // when the response is available
+              alert("Much success!")
+            }).
+            error(function(data, status, headers, config) {
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+              alert("Something went wrong :(")
+            });
+
+        }
+
+        if (signed && signed.txhash) {
+          processInfo(signed.txhash,'paste')
         }
         else {
           $cordovaBarcodeScanner.scan().then(processInfo(imageData,'camera'),

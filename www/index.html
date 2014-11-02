@@ -159,11 +159,17 @@
             </ion-view></script>
         <script id="page10.html" type="text/ng-template">
             <ion-view title="Scan Signed Tx">
-            <ion-content ng-controller="QRScannerController" padding="true" class="has-header">
-                <button class="button button-stable button-block" ng-click="scanBarcode()">Scan QR Code</button>
+            <ion-content ng-controller="ScanSignedTXController" padding="true" class="has-header">
                 <div>
-                    <p>Scan signed transaction QR code with camera above</p>
+                    <p>Scan the signed transaction QR code from your offline device with camera above, or paste it below</p>
                 </div>
+                <form>
+                    <label class="item item-input" name="signedTXHash">
+                    <input ng-model="signed.txhash" type="text" placeholder="Or paste it here (optional)" value="">
+                    </label>    
+                </form>
+                <button class="button button-stable button-block" ng-click="scanBarcode(signed)">Send Bitcoins!</button>
+
                 <div>
                     <p>(Next Page: Sending Transaction to Bitcoin Network&nbsp;…&nbsp;Successfully Sent!)</p>
                 </div>
