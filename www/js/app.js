@@ -9,6 +9,8 @@
 var freezehack = new Array();
 freezehack['pubKey'] = '1LFKEBkpVFheo5QKyKVL2bvXDtvbnArWJu';
 freezehack['privKey'] = 'KwQBcaqY5uW48g8RUsxKJsMVdZDCWqc2u98XQWP12XQxQjfPt2hB';
+freezehack['chainurl'] = 'https://api.chain.com/v2/bitcoin';
+freezehack['chainkey'] = '?api-key-id=DEMO-4a5e1e4';
 
 var freezeRayApp = angular.module('app', ['ionic', 'ngCordova'])
 
@@ -273,19 +275,25 @@ $ionicPlatform.ready(function() {
           //TODO// BROADCAST TO BITCOIN NETWORK
 
           //var url = 'https://blockchain.info/pushtxFORCEFAIL';
-          var url = 'https://blockchain.info/pushtx';
+          //var url = 'https://blockchain.info/pushtx';
+          var url = freezehack.chainurl+'/transactions'+freezehack.chainkey
           console.log("POSTing data to "+url)
+          //var toPost = freezehack.signedTransactionHex
+          var toPost = {'hex': freezehack.signedTransactionHex}
           alert("Are you sure you want to post "+freezehack.signedTransactionHex+" to "+url)
-          $http.post(url, freezehack.signedTransactionHex).
+
+          $http.post(url, toPost).
             success(function(data, status, headers, config) {
               // this callback will be called asynchronously
               // when the response is available
-              alert("Much success!")
-            }).
+              alert("Much success!"+JSON.stringify(data))
+              console.log("Much success!"+JSON.stringify(data))
+            }). 
             error(function(data, status, headers, config) {
               // called asynchronously if an error occurs
               // or server returns response with an error status.
-              alert("Something went wrong :(")
+              alert("Something went wrong :("+JSON.stringify(data))
+              console.log("Something went wrong :("+JSON.stringify(data))
             });
 
         }
