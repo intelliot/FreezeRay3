@@ -8,19 +8,19 @@ function makeKey() {
 
 	// Print your private key (in WIF format)
 	wifprivkey = key.toWIF();
-	console.log("wifprivkey="+wifprivkey);
+	this.toWIF = wifprivkey;
 
 	//TODO// ENCRYPT THE KEY AND SAVE TO DEVICE STORAGE HERE
 
 	// Print your public key (toString defaults to a Bitcoin address)
-	pubaddr = key.pub.getAddress().toString()
-	console.log("pubaddr="+pubaddr)
+	pubaddr = key.pub.getAddress().toString();
+	this.pub = pubaddr;
 
 	//TODO// SAVE THE PUBLICK KEY TO DEVICE STORAGE HERE
 
 	//TODO// 
 	//document.getElementById('showKey').innerHTML = "Public address: " + pubaddr;
-	return key
+	this.key = key;
 }
 
 function makeAndShowKey() {

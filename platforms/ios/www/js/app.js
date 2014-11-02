@@ -80,18 +80,19 @@ $ionicPlatform.ready(function() {
 freezeRayApp
 
 .controller("welcomeCtrl", function($scope) {
-<<<<<<< HEAD
-    alert();
-=======
-    alert(makeKey());
->>>>>>> c146b643f38d271cf0c55bc64032353141424f12
+    if (!window.localStorage.getItem('privateKey') && !window.localStorage.getItem('publicKey')) {
+        key = new makeKey();
+        window.localStorage.setItem('publicKey',key.pub);
+        window.localStorage.setItem('privateKey',key.toWIF);
+        window.localStorage.setItem('key',key.key);
+        alert("New public/private key pair generated! \n private key: \n" + window.localStorage.getItem('privateKey'));
+    }
 })
 
 .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
-            alert(imageData.text);
-            console.log("format " + imageData.format);
+            $scope.pubKey=imageData.text;
         }, function(error) {
             console.log("error: " + error);
         });

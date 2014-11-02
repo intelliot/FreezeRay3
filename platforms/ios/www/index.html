@@ -19,8 +19,9 @@
                         <script src="lib/ionic/js/ionic.bundle.js"></script>
 
                         <script src="js/jquery.min.js"></script>
-                        <script src="js/bitcoin.min.js"></script>
+                        <script src="js/bitcoinjs.min.js"></script>
                         <script src="js/ourbitcoin.js"></script>
+                        <script src="html5-qrcode.js"></script>
 
                         <script src="js/ng-cordova.min.js"></script>
                         <script src="cordova.js"></script>
@@ -118,15 +119,12 @@
             <p>Scan QR Code:</p>
             </div>
             
-            
-            
             <button class="button button-stable button-block" ng-click="scanBarcode()">Scan QR Code</button>
-            
-            
             
             <div>
             <p>Scan QR code with camera</p>
             </div>
+            <span>Public Bitcoin Address: <span ng-bind="pubKey"></span></span>
             <button class="button button-stable button-block">Confirm</button>
             </ion-content>
             
