@@ -7,8 +7,11 @@
 // 'starter.controllers' is found in controllers.js
 
 var freezehack = new Array();
-freezehack['pubKey'] = '1LFKEBkpVFheo5QKyKVL2bvXDtvbnArWJu';
-freezehack['privKey'] = 'KwQBcaqY5uW48g8RUsxKJsMVdZDCWqc2u98XQWP12XQxQjfPt2hB';
+//BIG HACK, FIX//
+//HACKATHON ONLY for demo put public/private key here 
+freezehack['pubKey'] = 'PUTPUBKEYHERE';
+freezehack['privKey'] = 'PUTPRIVKEYHERE';
+
 freezehack['chainurl'] = 'https://api.chain.com/v2/bitcoin';
 freezehack['chainkey'] = '?api-key-id=DEMO-4a5e1e4';
 
