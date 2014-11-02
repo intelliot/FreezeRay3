@@ -68,6 +68,12 @@ $ionicPlatform.ready(function() {
         url: '/offlinescan',
         templateUrl: 'page11.html'
         })
+
+    .state('page12', {
+        url: '/buildtransaction',
+        templateUrl: 'page12.html'
+        })
+
     ;
 
     // if none of the above states are matched, use this as the fallback
@@ -78,14 +84,30 @@ $ionicPlatform.ready(function() {
     });
 
     freezeRayApp.controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
-    $scope.scanBarcode = function() {
-    $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
-    alert(imageData.text);
-    console.log("format " + imageData.format);
+      $scope.scanBarcode = function() {
+        $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
+          alert(imageData.text);
+          console.log("format " + imageData.format);
 
-    }, function(error) {
-    console.log("error: " + error);
+          }, function(error) {
+            console.log("error: " + error);
+        });
+      }
     });
-    }
+
+
+freezeRayApp.controller("BuildUnsignedTXController", function($scope,$http) {
+ 
+  $scope.buildUnsignedTX = function(transaction) {
+    var chainurl = 'https://api.chain.com/v2/bitcoin/';
+    var chainkey = '?api-key-id=DEMO-4a5e1e4';
+    var fromx = transaction.fromAddress;
+    var url = chainurl + "addresses/" + fromx + "/unspents" + chainkey;
+    console.log("utxo chain url=" + url);
+
+    $http.get(url).success(function(data) {
+      console.log("got=" + JSON.stringify(data));
+    });
+  }
 
 });
