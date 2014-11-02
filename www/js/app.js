@@ -58,7 +58,7 @@ $ionicPlatform.ready(function() {
         url: '/unsignedtx',
         templateUrl: 'page9.html'
         })
-
+    
     .state('page10', {
         url: '/scantx',
         templateUrl: 'page10.html'
@@ -68,6 +68,12 @@ $ionicPlatform.ready(function() {
         url: '/offlinescan',
         templateUrl: 'page11.html'
         })
+
+    .state('page12', {
+        url: '/buildtransaction',
+        templateUrl: 'page12.html'
+        })
+
     ;
 
     // if none of the above states are matched, use this as the fallback
@@ -75,27 +81,55 @@ $ionicPlatform.ready(function() {
     $urlRouterProvider.otherwise('/welcome');
 
 
-});
+    });
 
-freezeRayApp
+    freezeRayApp
 
-.controller("welcomeCtrl", function($scope) {
-    if (!window.localStorage.getItem('privateKey') && !window.localStorage.getItem('publicKey')) {
-        key = new makeKey();
-        window.localStorage.setItem('publicKey',key.pub);
-        window.localStorage.setItem('privateKey',key.toWIF);
-        window.localStorage.setItem('key',key.key);
-        alert("New public/private key pair generated! \n private key: \n" + window.localStorage.getItem('privateKey'));
-    }
-})
-
-.controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
-    $scope.scanBarcode = function() {
+    .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
+      $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
-            $scope.friendKey=imageData.text;
-            window.localStorage.setItem('friendKey', imageData.text)
-        }, function(error) {
+          alert(imageData.text);
+          console.log("format " + imageData.format);
+
+          }, function(error) {
             console.log("error: " + error);
         });
-    }
-});
+      }
+    })
+
+    .controller("welcomeCtrl", function($scope) {
+        if (!window.localStorage.getItem('privateKey') && !window.localStorage.getItem('publicKey')) {
+            key = new makeKey();
+            window.localStorage.setItem('publicKey',key.pub);
+            window.localStorage.setItem('privateKey',key.toWIF);
+            window.localStorage.setItem('key',key.key);
+            alert("New public/private key pair generated! \n private key: \n" + window.localStorage.getItem('privateKey'));
+        }
+    })
+
+    .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
+        $scope.scanBarcode = function() {
+            $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
+                $scope.friendKey=imageData.text;
+                window.localStorage.setItem('friendKey', imageData.text)
+            }, function(error) {
+                console.log("error: " + error);
+            });
+        }
+    })
+
+    .controller("BuildUnsignedTXController", function($scope,$http) {
+     
+      $scope.buildUnsignedTX = function(transaction) {
+        var chainurl = 'https://api.chain.com/v2/bitcoin/';
+        var chainkey = '?api-key-id=DEMO-4a5e1e4';
+        var fromx = transaction.fromAddress;
+        var url = chainurl + "addresses/" + fromx + "/unspents" + chainkey;
+        console.log("utxo chain url=" + url);
+
+        $http.get(url).success(function(data) {
+          console.log("got=" + JSON.stringify(data));
+        });
+      }
+
+    });

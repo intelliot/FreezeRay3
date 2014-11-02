@@ -103,9 +103,7 @@
             </ion-view></script>
         <script id="page8.html" type="text/ng-template">
             <ion-view title="Send">
-            
-            
-            
+
             <ion-content ng-controller="QRScannerController" padding="true" scroll="false">
             <form>
             <label class="item item-input" name="Amount">
@@ -127,8 +125,6 @@
             <span>Public Bitcoin Address: <span ng-bind="friendKey"></span></span>
             <button class="button button-stable button-block">Confirm</button>
             </ion-content>
-            
-            
             
             </ion-view></script>
         <script id="page9.html" type="text/ng-template">
@@ -169,5 +165,36 @@
             </form>
             </ion-content>
             </ion-view></script>
+
+        <script id="page12.html" type="text/ng-template">
+            <ion-view title="Generate Transaction">
+
+            <ion-content ng-controller="BuildUnsignedTXController" padding="true" scroll="false">
+            <form>
+            <label class="item item-input" name="fromAddress">
+            <span class="input-label">From Address</span>
+            <input ng-model="transaction.fromAddress" type="text" placeholder="fromAddress" value="">
+            </label>            
+
+            <label class="item item-input" name="toAddress">
+            <span class="input-label">To Address</span>
+            <input ng-model="transaction.toAddress" type="text" placeholder="toAddress">
+             </label>
+
+            <label class="item item-input" name="amount">
+            <span class="input-label">Amount (mBTC)</span>
+            <input ng-model="transaction.amount" type="text" placeholder="Amount (mBTC)">
+            </label>
+            </form>
+
+            <button class="button button-stable button-block" ng-click="buildUnsignedTX(transaction)">Build TX</button>
+
+
+            </ion-content>
+            </ion-view></script>
+
+
+
+
     </body>
 </html>
