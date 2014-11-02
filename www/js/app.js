@@ -92,7 +92,8 @@ freezeRayApp
 .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
     $scope.scanBarcode = function() {
         $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
-            $scope.pubKey=imageData.text;
+            $scope.friendKey=imageData.text;
+            window.localStorage.setItem('friendKey', imageData.text)
         }, function(error) {
             console.log("error: " + error);
         });
