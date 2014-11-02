@@ -119,27 +119,14 @@
             
             <button class="button button-stable button-block" ng-click="scanBarcode(transaction)">Begin Scan</button>
 
-<<<<<<< Updated upstream
             <label class="item item-input" name="toAddress">
             <span class="input-label">Or Paste Address to Pay</span>
             <input ng-model="transaction.toAddress" type="text" placeholder="Friend's Address">
-=======
-            <label class="item item-input single" name="toAddress">
-            <span class="input-label">Paste Address to Pay</span>
-            <input ng-model="transaction.toAddress" type="text">
->>>>>>> Stashed changes
             </label>
             <button class="button button-stable button-block" ng-click="buildUnsingedTXHelper(transaction)">Build Transaction</button>
 
             </form>
             <div class="spacer" style="width: 300px; height: 20px;"></div>
-<<<<<<< Updated upstream
-=======
-
-            
-            <button class="button button-stable button-block" ng-click="scanBarcode()">Begin Scan</button>
-            <p>Scan address to pay</p>
->>>>>>> Stashed changes
 
             </ion-content>
                 
@@ -148,11 +135,7 @@
         <script id="confirmSell.html" type="text/ng-template">
             <ion-view title="Send">
             <ion-content ng-controller="QRConfirm" padding="true" scroll="false">
-<<<<<<< Updated upstream
             <h4 class="statement">So you are paying <span class="bold" ng-bind="amount"></span> to <span class="bold" ng-bind="friendKey"></span>?</h4>
-=======
-            <h4>Address to pay to <span ng-bind="friendKey"></span></h4>
->>>>>>> Stashed changes
             <button class="button button-stable button-block" ng-click="confirm()">Confirm</button>
             </ion-content>
             </ion-view>
@@ -161,11 +144,7 @@
             <ion-view title="QR Code">
             <ion-content ng-controller="QRShow" padding="true" scroll="false">
             <h3 class="text-center" ng-bind="message"></h3>
-<<<<<<< Updated upstream
-            <div id="qrcode" class="text-center"></div>
-=======
             <div id="qrcode"></div>
->>>>>>> Stashed changes
             <button class="button button-stable button-block" ng-click="next()">Done</button>
             </ion-content>
             </ion-view>

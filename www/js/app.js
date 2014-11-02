@@ -103,14 +103,9 @@ $ionicPlatform.ready(function() {
 
     .controller("QRConfirm", function($scope, $location) {
       $scope.friendKey = window.localStorage.getItem('friendKey');
-<<<<<<< Updated upstream
       $scope.amount = window.localStorage.getItem('friendAmount');
       $scope.confirm =  function() {
         $location.path('QRShow')
-=======
-      $scope.amount = window.localStorage.getItem('friendKey');
-      $scope.confirm =  function() {
->>>>>>> Stashed changes
       }
     })
 
@@ -136,17 +131,10 @@ $ionicPlatform.ready(function() {
         }
     })
 
-<<<<<<< Updated upstream
     .controller("QRShow", function($scope, $location) {
         $scope.message = "Show this to your offline phone";
         new QRCode(document.getElementById("qrcode"), window.localStorage.getItem('utx'));
         $scope.next = function() {
-=======
-    .controller("QRShow", function($scope, $wallet) {
-        $show.message = "Show this to your offline phone";
-        new QRCode(document.getElementById("qrcode"), window.localStorage.getItem('utx'));
-        $show.next = function() {
->>>>>>> Stashed changes
             $location.path('/wallet');
         }
     })

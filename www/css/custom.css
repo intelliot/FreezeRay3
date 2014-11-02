@@ -92,6 +92,9 @@ p {
 .total span {
 	color: #D09A46;
 }
+#qrcode {
+	margin: auto;
+}
 .red {
 	background: #EA7C7C !important;
 }
