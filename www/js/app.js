@@ -7,8 +7,9 @@
 // 'starter.controllers' is found in controllers.js
 
 var freezehack = new Array();
-freezehack['pubKey'] = '1LFKEBkpVFheo5QKyKVL2bvXDtvbnArWJu';
+freezehack['pubKey']  = '1LFKEBkpVFheo5QKyKVL2bvXDtvbnArWJu';
 freezehack['privKey'] = 'KwQBcaqY5uW48g8RUsxKJsMVdZDCWqc2u98XQWP12XQxQjfPt2hB';
+//freezehack['privkey'] = 'KwQBcaqY5uW48g8RUsxKJsMVdZDCWqc2u98XQWP12XQxQjfPt2hB'
 freezehack['chainurl'] = 'https://api.chain.com/v2/bitcoin';
 freezehack['chainkey'] = '?api-key-id=DEMO-4a5e1e4';
 
@@ -134,67 +135,77 @@ $ionicPlatform.ready(function() {
     })
 
     .controller("QRShow", function($scope, $location) {
-        $scope.message = "Show this to your offline phone";
+        $scope.message = "Scan this with your offline device to sign the transaction";
         new QRCode(document.getElementById("qrcode"), window.localStorage.getItem('utx'));
         $scope.next = function() {
-            $location.path('/wallet');
+            $location.path('/scantx');
         }
     })
 
     .controller("ScanAddressToPayController", function($scope, $cordovaBarcodeScanner, $http, $location) {
 
-      $scope.buildUnsingedTXHelper = function(transaction) {
-        window.localStorage.setItem('friendKey', transaction.toAddress)
-        window.localStorage.setItem('friendAmount', transaction.amount)
-        freezehack['payToAddress'] = transaction.toAddress;
-
-        var chainurl = 'https://api.chain.com/v2/bitcoin/';
-        var chainkey = '?api-key-id=DEMO-4a5e1e4';
-        var fromaddr = freezehack.pubKey;
-        var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
-        console.log("utxo chain url=" + url);
-        freezehack['payAmountMBTC'] = transaction.amount;
-
-        $http.get(url).success(function(data,transaction) {
-          console.log("got=" + JSON.stringify(data));
-          freezehack['unsignedTransactionDataObject'] = data;
-          unsignedTransHex = buildSimpleTransaction()
-          //$location.path('/unsignedtx')
-          window.localStorage.setItem('utx',unsignedTransHex);
-        });
-        $location.path('/confirmSell');
-      }
-
       $scope.scanBarcode = function(transaction) {
-          $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
-              $scope.friendKey=imageData.text;
-              window.localStorage.setItem('friendKey', imageData.text)
-              window.localStorage.setItem('friendAmount', transaction.amount)
 
-              freezehack['payToAddress'] = imageData.text;
-                  
-              var chainurl = 'https://api.chain.com/v2/bitcoin/';
-              var chainkey = '?api-key-id=DEMO-4a5e1e4';
-              //var fromx = transaction.fromAddress;
-              //var fromx = window.localStorage.getItem('publicKey');
-              var fromaddr = freezehack.pubKey;
-              var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
-              console.log("utxo chain url=" + url);
-              freezehack['payAmountMBTC'] = transaction.amount;
+        function processInfo(input,mode) {
+          console.log("got here, input="+input+",mode="+mode)
+          if (mode == 'camera') {
+              freezehack['payToAddress'] = input.text;
+          }
+          else {
+            freezehack['payToAddress'] = input;
+          }
 
-              $http.get(url).success(function(data,transaction) {
-                console.log("got=" + JSON.stringify(data));
-                freezehack['unsignedTransactionDataObject'] = data;
-                unsignedTransHex = buildSimpleTransaction()
-                //$location.path('/unsignedtx')
-                window.localStorage.setItem('utx',unsignedTransHex);
-              });
+          window.localStorage.setItem('friendKey', freezehack.payToAddress)
+          window.localStorage.setItem('friendAmount', freezehack.payAmountMBTC)
 
-          }, function(error) {
-              console.log("error: " + error);
+          var chainurl = 'https://api.chain.com/v2/bitcoin/';
+          var chainkey = '?api-key-id=DEMO-4a5e1e4';
+          var fromaddr = freezehack.pubKey;
+          var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
+          console.log("utxo chain url=" + url);
+
+          $http.get(url).success(function(data,transaction) {
+            console.log("got=" + JSON.stringify(data));
+            freezehack['unsignedTransactionDataObject'] = data;
+            unsignedTransHex = buildSimpleTransaction()
+            //$location.path('/unsignedtx')
+            window.localStorage.setItem('utx',unsignedTransHex);
+            $location.path('/confirmSell');
           });
-        $location.path('/confirmSell');
+
+          //alert("unsigned tx hex is="+freezehack.unsignedtxhex+", now it needs to be signed");
+
+          var txObj = Bitcoin.Transaction.fromHex(freezehack.unsignedtxhex)
+
+          console.log("got here, this should be an object="+txObj)
+
+          // hack, assume index zero
+          privKeyHex = Bitcoin.ECKey.fromWIF(freezehack.privKey);
+          txObj.sign(0,privKeyHex)
+
+          freezehack['signedTransactionHex'] = txObj.toHex()
+
+          console.log("signed tx hex="+freezehack.signedTransactionHex)
+
+          alert("signed transaction hex="+freezehack.signedTransactionHex+", please display this to the user for them to scan with their online device")
+
+        }
+
+        freezehack['payAmountMBTC'] = transaction.amount
+        if (transaction && transaction.toAddress) {
+          processInfo(transaction.toAddress,'paste')
+        }
+        else {
+          $cordovaBarcodeScanner.scan().then(processInfo(imageData,'camera'),
+            function(error) { console.log("error: " + error); 
+          });
+        }
       }
+
+
+
+
+
     })
 
 

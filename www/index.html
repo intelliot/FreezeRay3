@@ -110,20 +110,14 @@
             <span class="input-label">Amount (mBTC)</span>
             <input ng-model="transaction.amount" type="text" >
             </label>
-            
-            <p></p>
-              
             <div>
             <p>Scan Address to Pay</p>
             </div>
-            
-            <button class="button button-stable button-block" ng-click="scanBarcode(transaction)">Begin Scan</button>
-
             <label class="item item-input" name="toAddress">
             <span class="input-label">Or Paste Address to Pay</span>
             <input ng-model="transaction.toAddress" type="text" placeholder="Friend's Address">
             </label>
-            <button class="button button-stable button-block" ng-click="buildUnsingedTXHelper(transaction)">Build Transaction</button>
+            <button class="button button-stable button-block" ng-click="scanBarcode(transaction)">Build Transaction</button>
 
             </form>
             <div class="spacer" style="width: 300px; height: 20px;"></div>
