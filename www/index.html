@@ -111,22 +111,21 @@
             </label>
             
             <p></p>
+              
+            <div>
+            <p>Scan Address to Pay</p>
+            </div>
+            
+            <button class="button button-stable button-block" ng-click="scanBarcode()">Begin Scan</button>
 
             <label class="item item-input" name="toAddress">
-            <span class="input-label">Paste Address to Pay</span>
+            <span class="input-label">Or Paste Address to Pay</span>
             <input ng-model="transaction.toAddress" type="text" placeholder="Friend's Address">
             </label>
-
             <button class="button button-stable button-block" ng-click="buildUnsingedTXHelper(transaction)">Build Transaction</button>
 
             </form>
             <div class="spacer" style="width: 300px; height: 20px;"></div>
-              
-            <div>
-            <p>Or Scan Addres to Pay</p>
-            </div>
-            
-            <button class="button button-stable button-block" ng-click="scanBarcode()">Begin Scan</button>
 
 
             </ion-content>
