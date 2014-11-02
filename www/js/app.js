@@ -134,12 +134,13 @@ $ionicPlatform.ready(function() {
     })
 
     .controller("QRShow", function($scope, $location) {
-        $scope.message = "Show this to your offline phone";
+        $scope.message = "Show this to your online phone";
         new QRCode(document.getElementById("qrcode"), window.localStorage.getItem('utx'));
         $scope.next = function() {
-            $location.path('/wallet');
+            $location.path('/welcome');
         }
     })
+
 
     .controller("ScanAddressToPayController", function($scope, $cordovaBarcodeScanner, $http, $location) {
 
@@ -227,6 +228,9 @@ $ionicPlatform.ready(function() {
 
           alert("signed transaction hex="+freezehack.signedTransactionHex+", please display this to the user for them to scan with their online device")
 
+          window.localStorage.setItem('utx',freezehack.signedTransactionHex)
+
+          $location.path('/QRShow')
         }
 
         if (unsigned && unsigned.txhash) {
