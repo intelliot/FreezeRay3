@@ -47,8 +47,8 @@ p {
 	margin: 0 20px;
 }
 .item.item-input.single input {
-	font-size: 1em;
-	line-height: 30px;
+	font-size: 2em;
+	line-height: 2em;
 }
 .text-center {
 	text-align: center;
@@ -97,6 +97,9 @@ p {
 }
 .red {
 	background: #EA7C7C !important;
+}
+.gray {
+	background: #999 !important;
 }
 .circleicon.ion-locked {
 	padding: 0 45px;
