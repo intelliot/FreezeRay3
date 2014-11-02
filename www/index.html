@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <style>
+      .angular-google-map-container {
+          width: 100%;
+          height: 504px;
+      }
+    </style>
+
+    <link href="/css/preview-frame.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+
+    <script>
+// Ionic Starter App
+
+// angular.module is a global place for creating, registering and retrieving Angular modules
+// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
+// the 2nd parameter is an array of 'requires'
+// 'starter.services' is found in services.js
+// 'starter.controllers' is found in controllers.js
+angular.module('app', ['ionic'])
+
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if(window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if(window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+  });
+})
+
+.config(function($stateProvider, $urlRouterProvider) {
+
+  // Ionic uses AngularUI Router which uses the concept of states
+  // Learn more here: https://github.com/angular-ui/ui-router
+  // Set up the various states which the app can be in.
+  // Each state's controller can be found in controllers.js
+  $stateProvider
+    
+    .state('page3', {
+      url: '/wallet',
+      templateUrl: 'page3.html'
+    })
+    
+    .state('page5', {
+      url: '/welcome',
+      templateUrl: 'page5.html'
+    })
+    
+    .state('page6', {
+      url: '/create',
+      templateUrl: 'page6.html'
+    })
+    
+    .state('page7', {
+      url: '/reminders',
+      templateUrl: 'page7.html'
+    })
+    
+    .state('page8', {
+      url: '/send',
+      templateUrl: 'page8.html'
+    })
+    
+    .state('page9', {
+      url: '/unsignedtx',
+      templateUrl: 'page9.html'
+    })
+    
+    .state('page10', {
+      url: '/scantx',
+      templateUrl: 'page10.html'
+    })
+    
+    .state('page11', {
+      url: '/offlinescan',
+      templateUrl: 'page11.html'
+    })
+    ;
+
+  // if none of the above states are matched, use this as the fallback
+  
+  $urlRouterProvider.otherwise('/welcome');
+  
+
+});
+
+
+    </script>
+  </head>
+  <body ng-app="app" animation="slide-left-right-ios7">
+  <div>
+    <div>
+        <ion-nav-bar class="bar-stable">
+            <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back">Back</ion-nav-back-button>
+        </ion-nav-bar>
+        <ion-nav-view></ion-nav-view>
+    </div>
+</div>
+<script id="page3.html" type="text/ng-template">
+<ion-view title="Wallet">
+    <ion-content padding="true" class="has-header">
+        <div class="button-bar">
+            <button class="button button-stable button-block">Account</button>
+            <button class="button button-stable button-block">Balance</button>
+            <button class="button button-stable button-block">Txns</button>
+        </div>
+        <ion-list>
+            <ion-item>Transaction 1: 5.00 mBTC (10 confirmations)</ion-item>
+            <ion-item>Transaction 2: 70.00 mBTC</ion-item>
+            <ion-item>Transaction 3: 400.00 mBTC (unconfirmed)</ion-item>
+        </ion-list>
+        <a href="#/send" class="button button-stable button-block">Send</a>
+        <button class="button button-stable button-block">Receive</button>
+    </ion-content>
+</ion-view></script>
+<script id="page5.html" type="text/ng-template">
+<ion-view title="Welcome">
+    <ion-content padding="true" scroll="false">
+        <h3>Welcome to FreezeRay</h3>
+        <div>
+            <p>This device is:</p>
+        </div>
+        <a href="#/wallet" class="button button-stable button-block">Online</a>
+        <a href="#/create" class="button button-stable button-block">Offline</a>
+    </ion-content>
+</ion-view></script>
+<script id="page6.html" type="text/ng-template">
+<ion-view title="Make a Wallet">
+    <ion-content padding="true" scroll="false">
+        <form>
+            <h4>Choose encryption password:</h4>
+            <label class="item item-input" name="Password">
+                <span class="input-label"></span>
+                <input type="password" placeholder="Password">
+            </label>
+            <a href="#/scantx" class="button button-stable button-block">Save</a>
+        </form>
+    </ion-content>
+</ion-view></script>
+<script id="page7.html" type="text/ng-template">
+<ion-view title="Reminders">
+    <ion-content padding="true" scroll="false">
+        <div>
+            <p>From now on, your offline device must never be connected to any network.</p>
+        </div>
+        <div>
+            <p>
+                <strong>Wi-Fi and Bluetooth networks are not guaranteed to be secure.</strong>
+            </p>
+            <div>
+                <p>FreezeRay is not responsible for any losses that may be incurred.</p>
+            </div>
+        </div>
+        <form>
+            <ion-checkbox>Confirm</ion-checkbox>
+        </form>
+        <a href="#/offlinescan" class="button button-stable button-block">I Understand</a>
+    </ion-content>
+</ion-view></script>
+<script id="page8.html" type="text/ng-template">
+<ion-view title="Send">
+    <ion-content padding="true" scroll="false">
+        <form>
+            <label class="item item-input" name="Amount">
+                <span class="input-label">Amount (mBTC)</span>
+                <input type="text" placeholder="Amount (mBTC)">
+            </label>
+        </form>
+        <div class="spacer" style="width: 300px; height: 41px;"></div>
+        <div style="line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
+            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        </div>
+        <div>
+            <p>Scan QR code with camera</p>
+        </div>
+        <button class="button button-stable button-block">Confirm</button>
+    </ion-content>
+</ion-view></script>
+<script id="page9.html" type="text/ng-template">
+<ion-view title="Unsigned Transaction">
+    <ion-content padding="true" class="has-header">
+        <h5>Scan this with your Offline device to sign:</h5>
+        <div style="line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
+            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        </div>
+        <button class="button button-stable button-block">Continue</button>
+    </ion-content>
+</ion-view></script>
+<script id="page10.html" type="text/ng-template">
+<ion-view title="Scan Signed Tx">
+    <ion-content padding="true" class="has-header">
+        <div style="line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
+            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        </div>
+        <div>
+            <p>Scan signed transaction QR code with camera above</p>
+        </div>
+        <div>
+            <p>(Next Page: Sending Transaction to Bitcoin Network&nbsp;…&nbsp;Successfully Sent!)</p>
+        </div>
+    </ion-content>
+</ion-view></script>
+<script id="page11.html" type="text/ng-template">
+<ion-view title="Offline: Scan Tx">
+    <ion-content padding="true" scroll="false">
+        <div style="line-height: 250px; background-color: rgb(255, 255, 255); border: 1px solid rgb(238, 238, 238); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; text-align: center;">
+            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+        </div>
+        <div>
+            <p>Use camera above to scan unsigned transaction from Online device</p>
+        </div>
+        <div>
+            <p>… Transaction details: Destination address: xXxXxXxX Amount: 100.00 mBTC</p>
+        </div>
+        <form>
+            <ion-checkbox>Confirm</ion-checkbox>
+            <button class="button button-stable button-block">Continue to view signed tx</button>
+        </form>
+    </ion-content>
+</ion-view></script>
+  </body>
+</html>

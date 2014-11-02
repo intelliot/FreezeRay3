@@ -1,0 +1,14 @@
+2014-11-01 16:53:04.617 FreezeRay3[70290:70b] Apache Cordova native platform version 3.6.3 is starting.
+2014-11-01 16:53:04.618 FreezeRay3[70290:70b] Multi-tasking -> Device: YES, App: YES
+2014-11-01 16:53:04.626 FreezeRay3[70290:70b] Unlimited access to network resources
+2014-11-01 16:53:04.643 FreezeRay3[70290:70b] [CDVTimer][keyboard] 0.047982ms
+2014-11-01 16:53:04.643 FreezeRay3[70290:70b] [CDVTimer][TotalPluginStartup] 0.434995ms
+2014-11-01 16:53:04.721 FreezeRay3[70290:70b] Resetting plugins due to page load.
+2014-11-01 16:53:04.888 FreezeRay3[70290:70b] Finished load of: file:///Users/e/Library/Developer/CoreSimulator/Devices/E99CDBD9-BFA4-4DC4-9A4A-4C7AA15F068B/data/Applications/B4748203-C387-4D02-BF65-3CE45052393C/FreezeRay3.app/www/index.html#/wallet
+2014-11-01 16:53:38.523 FreezeRay3[70480:70b] Apache Cordova native platform version 3.6.3 is starting.
+2014-11-01 16:53:38.525 FreezeRay3[70480:70b] Multi-tasking -> Device: YES, App: YES
+2014-11-01 16:53:38.531 FreezeRay3[70480:70b] Unlimited access to network resources
+2014-11-01 16:53:38.545 FreezeRay3[70480:70b] [CDVTimer][keyboard] 0.075996ms
+2014-11-01 16:53:38.545 FreezeRay3[70480:70b] [CDVTimer][TotalPluginStartup] 0.433981ms
+2014-11-01 16:53:38.640 FreezeRay3[70480:70b] Resetting plugins due to page load.
+2014-11-01 16:53:38.775 FreezeRay3[70480:70b] Finished load of: file:///Users/e/Library/Developer/CoreSimulator/Devices/E99CDBD9-BFA4-4DC4-9A4A-4C7AA15F068B/data/Applications/B4748203-C387-4D02-BF65-3CE45052393C/FreezeRay3.app/www/index.html#/welcome
