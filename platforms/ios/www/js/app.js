@@ -80,7 +80,11 @@ $ionicPlatform.ready(function() {
 freezeRayApp
 
 .controller("welcomeCtrl", function($scope) {
+<<<<<<< HEAD
     alert();
+=======
+    alert(makeKey());
+>>>>>>> c146b643f38d271cf0c55bc64032353141424f12
 })
 
 .controller("QRScannerController", function($scope, $cordovaBarcodeScanner) {
