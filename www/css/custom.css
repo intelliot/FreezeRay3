@@ -1,0 +1,69 @@
+@font-face {
+	font-family: "seaweed";
+	src: url('SeaweedScript-Regular.ttf');
+}
+.bar.bar-stable .title, .bar-stable .button-icon.btn.ion-ios7-arrow-back {
+	color: #937A4A;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+ion-content h3.heading {
+	text-align: center;
+	margin: 20% auto;
+	font-size: 2em;
+	font-weight: 100;
+	color: #95C7FF;
+}
+ion-content h3.heading span {
+	font-family: seaweed;
+	font-size: 2em;
+	display: block;
+	color: #5089CA;
+}
+.bar .button.button-icon .icon:before, .bar .button.button-icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before {
+	margin-right: 5px;
+}
+.button.button-stable.button-block {
+	font-weight: bold;
+}
+.button.button-stable.button-block:hover {
+	color: #FFF;
+}
+.button.button-stable.button-block:active {
+	color: #58A4D2;
+	border: none;
+}
+.item-input {
+	margin-top: 10%;
+}
+p {
+	color: #aaa;
+}
+.single {
+	border: none;
+	border-bottom: 2px solid;
+	margin: 0 20px;
+}
+.item.item-input.single input {
+	font-size: 2em;
+	line-height: 30px;
+}
+.text-center {
+	text-align: center;
+}
+.circleicon {
+	margin: 30px auto;
+	width: 150px;
+	height: 150px;
+	display: block;
+	background: #B1DEFF;
+	color: #FFF;
+	border-radius: 100%;
+	line-height: 150px;
+	font-size: 80px;
+	padding: 0 35px;
+}
+.circleicon.ion-locked {
+	padding: 0 45px;
+	background: #E2E2E2;
+}
