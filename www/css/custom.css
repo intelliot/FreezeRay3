@@ -26,6 +26,7 @@ ion-content h3.heading span {
 .button.button-stable.button-block {
 	font-weight: bold;
 	margin: 20px 0;
+	margin-top: 20px !important;
 }
 .button.button-stable.button-block:hover {
 	color: #FFF;
@@ -64,11 +65,13 @@ p {
 	font-size: 80px;
 	padding: 0 35px;
 }
+#graph {
+	width: 90%;
+	margin: auto;
+}
 .list {
-	border: 2px solid #F2DA9C;
+	border-top: 2px solid #F2DA9C;
 	margin: 20px;
-	border-right-color: transparent;
-	border-left-color: transparent;
 }
 .list .item {
 	border: none;
@@ -84,6 +87,9 @@ p {
 	font-size: 1.5em;
 	font-weight: bold;
 	margin-top: 50px;
+	color: #444;
+}
+.total span {
 	color: #D09A46;
 }
 .red {
