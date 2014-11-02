@@ -25,6 +25,7 @@ ion-content h3.heading span {
 }
 .button.button-stable.button-block {
 	font-weight: bold;
+	margin: 20px 0;
 }
 .button.button-stable.button-block:hover {
 	color: #FFF;
@@ -62,6 +63,31 @@ p {
 	line-height: 150px;
 	font-size: 80px;
 	padding: 0 35px;
+}
+.list {
+	border: 2px solid #F2DA9C;
+	margin: 20px;
+	border-right-color: transparent;
+	border-left-color: transparent;
+}
+.list .item {
+	border: none;
+}
+.list .item:nth-child(2) {
+	color: #888;
+}
+.list .item:nth-child(3) {
+	color: #bbb;
+}
+.total {
+	text-align: center;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-top: 50px;
+	color: #D09A46;
+}
+.red {
+	background: #EA7C7C !important;
 }
 .circleicon.ion-locked {
 	padding: 0 45px;
