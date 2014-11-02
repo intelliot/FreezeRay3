@@ -145,9 +145,11 @@ $ionicPlatform.ready(function() {
     .controller("ScanAddressToPayController", function($scope, $cordovaBarcodeScanner, $http, $location) {
 
       $scope.scanBarcode = function(transaction) {
+        //alert('got into ScanAddressToPayController, scanBarcode')
 
         function processInfo(input,mode) {
           console.log("got here, input="+input+",mode="+mode)
+          //alert("got here, input="+input+",mode="+mode)
           if (mode == 'camera') {
               freezehack['payToAddress'] = input.text;
           }
@@ -158,47 +160,50 @@ $ionicPlatform.ready(function() {
           window.localStorage.setItem('friendKey', freezehack.payToAddress)
           window.localStorage.setItem('friendAmount', freezehack.payAmountMBTC)
 
+          //alert("building api call");
+
           var chainurl = 'https://api.chain.com/v2/bitcoin/';
           var chainkey = '?api-key-id=DEMO-4a5e1e4';
           var fromaddr = freezehack.pubKey;
           var url = chainurl + "addresses/" + fromaddr + "/unspents" + chainkey;
           console.log("utxo chain url=" + url);
+          //alert("utxo chain url=" + url);
 
-          $http.get(url).success(function(data,transaction) {
+          $http.get(url)
+          .success(function(data,transaction) {
             console.log("got=" + JSON.stringify(data));
+            //alert("got=" + JSON.stringify(data));
             freezehack['unsignedTransactionDataObject'] = data;
             unsignedTransHex = buildSimpleTransaction()
             //$location.path('/unsignedtx')
             window.localStorage.setItem('utx',unsignedTransHex);
+            //alert("unsignedtranshex=" + JSON.stringify(data));
             $location.path('/confirmSell');
-          });
-
-          //alert("unsigned tx hex is="+freezehack.unsignedtxhex+", now it needs to be signed");
-
-          var txObj = Bitcoin.Transaction.fromHex(freezehack.unsignedtxhex)
-
-          console.log("got here, this should be an object="+txObj)
-
-          // hack, assume index zero
-          privKeyHex = Bitcoin.ECKey.fromWIF(freezehack.privKey);
-          txObj.sign(0,privKeyHex)
-
-          freezehack['signedTransactionHex'] = txObj.toHex()
-
-          console.log("signed tx hex="+freezehack.signedTransactionHex)
-
-          alert("signed transaction hex="+freezehack.signedTransactionHex+", please display this to the user for them to scan with their online device")
+          })
+          .error(function(data, status, headers, config) {
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+              //alert("Something went wrong :("+JSON.stringify(data))
+              console.log("Something went wrong :("+JSON.stringify(data))
+            });
 
         }
 
         freezehack['payAmountMBTC'] = transaction.amount
-        if (transaction && transaction.toAddress) {
+        if (transaction && transaction['toAddress'] != undefined) {
+          //alert('got into ScanAddressToPayController, call processInfo for paste')
+
           processInfo(transaction.toAddress,'paste')
         }
         else {
-          $cordovaBarcodeScanner.scan().then(processInfo(imageData,'camera'),
+          //alert('got into ScanAddressToPayController, call cordovaBarcodeScanner')
+          $cordovaBarcodeScanner.scan().then(function(imageData){ 
+              alert("got into imagedata func")
+              processInfo(imageData,'camera')
+            },
             function(error) { console.log("error: " + error); 
-          });
+          }
+          );
         }
       }
 
@@ -216,7 +221,7 @@ $ionicPlatform.ready(function() {
         function processInfo(input,mode) {
           console.log("got here, input="+input+",mode="+mode)
           if (mode == 'camera') {
-              freezehack['unsignedtxhex'] = imageData.text;
+              freezehack['unsignedtxhex'] = input.text;
           }
           else {
             freezehack['unsignedtxhex'] = input;
@@ -251,7 +256,6 @@ $ionicPlatform.ready(function() {
       }
 
     }) 
-
 
     .controller("ScanSignedTXController", function($scope, $cordovaBarcodeScanner, $http, $location) {
 
