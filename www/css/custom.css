@@ -48,7 +48,8 @@ p {
 }
 .item.item-input.single input {
 	font-size: 2em;
-	line-height: 2em;
+	line-height: 1.5em;
+	height: initial;
 }
 .text-center {
 	text-align: center;
