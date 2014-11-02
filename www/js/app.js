@@ -85,6 +85,11 @@ $ionicPlatform.ready(function() {
         templateUrl: 'confirmSell.html'
         })
 
+    .state('QRShow', {
+        url: '/QRShow',
+        templateUrl: 'QRShow.html'
+        })
+
     ;
 
     // if none of the above states are matched, use this as the fallback
@@ -98,9 +103,9 @@ $ionicPlatform.ready(function() {
 
     .controller("QRConfirm", function($scope, $location) {
       $scope.friendKey = window.localStorage.getItem('friendKey');
+      $scope.amount = window.localStorage.getItem('friendAmount');
       $scope.confirm =  function() {
-        alert();
-        $location.path('/wallet');
+        $location.path('QRShow')
       }
     })
 
@@ -115,13 +120,22 @@ $ionicPlatform.ready(function() {
     })
 
     .controller("QRScannerController", function($scope, $cordovaBarcodeScanner, $location) {
-        $scope.scanBarcode = function() {
+        $scope.scanBarcode = function(object) {
             $cordovaBarcodeScanner.scan().then(function(imageData) {
                 window.localStorage.setItem('friendKey', imageData.text)
+                window.localStorage.setItem('amount', amount)
                 $location.path('/confirmSell');
             }, function(error) {
                 console.log("error: " + error);
             });
+        }
+    })
+
+    .controller("QRShow", function($scope, $location) {
+        $scope.message = "Show this to your offline phone";
+        new QRCode(document.getElementById("qrcode"), window.localStorage.getItem('utx'));
+        $scope.next = function() {
+            $location.path('/wallet');
         }
     })
 
@@ -141,6 +155,8 @@ $ionicPlatform.ready(function() {
       // }
 
       $scope.buildUnsingedTXHelper = function(transaction) {
+        window.localStorage.setItem('friendKey', transaction.toAddress)
+        window.localStorage.setItem('friendAmount', transaction.amount)
         freezehack['payToAddress'] = transaction.toAddress;
 
         var chainurl = 'https://api.chain.com/v2/bitcoin/';
@@ -157,14 +173,16 @@ $ionicPlatform.ready(function() {
           freezehack['unsignedTransactionDataObject'] = data;
           unsignedTransHex = buildSimpleTransaction()
           //$location.path('/unsignedtx')
-          alert("unsignedTransHex="+unsignedTransHex+", please put that into a QR code and display to the user")
+          window.localStorage.setItem('utx',unsignedTransHex);
         });
+        $location.path('/confirmSell');
       }
 
-      $scope.scanBarcode = function() {
+      $scope.scanBarcode = function(transaction) {
           $cordovaBarcodeScanner.scan().then(function(imageData) {                                 
               $scope.friendKey=imageData.text;
               window.localStorage.setItem('friendKey', imageData.text)
+              window.localStorage.setItem('friendAmount', transaction.amount)
 
               freezehack['payToAddress'] = imageData.text;
                   
@@ -182,12 +200,13 @@ $ionicPlatform.ready(function() {
                 freezehack['unsignedTransactionDataObject'] = data;
                 unsignedTransHex = buildSimpleTransaction()
                 //$location.path('/unsignedtx')
-                alert("unsignedTransHex="+unsignedTransHex+", please put that into a QR code and display to the user")
+                window.localStorage.setItem('utx',unsignedTransHex);
               });
 
           }, function(error) {
               console.log("error: " + error);
           });
+        $location.path('/confirmSell');
       }
     })
 
