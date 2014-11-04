@@ -7,3 +7,5 @@ If you're on a Mac:
 
 1. Clone
 2. Run: `ionic emulate ios`
+
+Devs: Adil Virani, Elliot Lee, Benny Yan, Bryan 
